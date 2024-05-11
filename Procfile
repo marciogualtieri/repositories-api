@@ -1,5 +1,5 @@
 service: uvicorn app.main:app --host 0.0.0.0 --port 8888
-test: pytest -s -vv
+tests: pytest -s -vv
 runserver: uvicorn app.main:app --reload
 format: black . && isort .
 format_check: black --check . && isort --check-only .

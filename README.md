@@ -13,7 +13,7 @@ Production:
 
 - [fastapi](https://fastapi.tiangolo.com/): A back-end framework.
 - [gidgethub](https://gidgethub.readthedocs.io/en/latest/): An async GitHub API client.
-- [cachetools](https://cachetools.readthedocs.io/en/latest/): A GitHub API client's cache.
+- [cachetools](https://cachetools.readthedocs.io/en/latest/): A caching module for the GitHub API client.
 - [uvicorn](https://www.uvicorn.org/): An ASGI web server.
 
 Development:
@@ -26,7 +26,7 @@ Development:
 
 ### Create a Virtual Environment
 
-For convenience, we will create an specific virtual environment for development:
+For convenience, we will create a specific virtual environment for development:
 
 ```bash
 python -m venv venv
@@ -48,17 +48,43 @@ This will install the dependencies in our development virtual environment rather
 pytest -s -vvv
 ```
 
+You should get results similar to these:
+
+```
+======================== test session starts ==========================================================================================
+platform linux -- Python 3.10.13, pytest-8.2.0, pluggy-1.5.0 -- /home/marcio/Workspace/RedcarePharmacy/repositories-api/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/marcio/Workspace/RedcarePharmacy/repositories-api
+configfile: pyproject.toml
+plugins: anyio-4.3.0, cov-5.0.0
+collected 9 items                                                                                                                                                                                                                            
+
+tests/test_app.py::test_get_tops_with_from_date PASSED
+tests/test_app.py::test_get_tops_with_all_languages PASSED
+tests/test_app.py::test_get_tops_with_specific_language PASSED
+tests/test_app.py::test_get_tops_with_specific_limit_50 PASSED
+tests/test_app.py::test_get_tops_with_specific_limit_100 PASSED
+tests/test_app.py::test_get_tops_with_invalid_limits PASSED
+tests/test_app.py::test_get_tops_with_invalid_from_date PASSED
+tests/test_app.py::test_get_tops_with_rate_limit_exceeded PASSED
+tests/test_app.py::test_get_tops_with_crud_exception PASSED
+
+=========================================== 9 passed in 0.13s ===========================================================================
+```
+
 You may also use honcho:
 
 ```bash
 honcho start tests
 ```
 
-It's possible to generate coverage reports:
+It's also possible to generate coverage reports:
 
 ```bash
 pytest --cov=. --cov-report html
 ```
+
+Once generated, they should be available inside `./htmlcov/`:
 
 ![Web Browser View of the Coverage Reports](./docs/images/coverage-reports-1.png)
 
@@ -67,7 +93,6 @@ You may also use honcho:
 ```bash
 honcho start coverage
 ```
-
 
 ### Run in Development Mode
 
@@ -98,10 +123,10 @@ This project uses honcho to manage tasks. The following tasks are available:
 | `honcho start tests`         | Run tests.                                                                                   |
 | `honcho start format`        | Formats code and organize imports using black and isort.                                     |
 | `honcho start format_check`  | Only checks formatting (meant to be used in CI).                                             |
-| `honcho start pylint_check`  | PyLint (configuration [here](./.pylintrc)) checks.                                           |
-| `honcho start mypy_check`    | MyPy (configuration [here](./mypy.ini)) checks.                                              |
+| `honcho start pylint_check`  | PyLint checks.                                                                               |
+| `honcho start mypy_check`    | MyPy checks.                                                                                 |
 | `honcho start quality_check` | PyLint & MyPy checks.                                                                        |
-| `honcho start coverage`      | Generate test coverage reports. They should be available [here](./htmlcov/index.html).       |
+| `honcho start coverage`      | Generate test coverage reports. Once generated, they should be available inside `./htmlcov/`.|
 
 ## Production
 
@@ -113,7 +138,7 @@ You may also run the service using docker:
 
 ```
 docker build -t repositories-api .
-docker run -d -p 8000:8000 -e GITHUB_API_ACCESS_TOKEN="YOUR ACCESS TOKEN"... repositories-api
+docker run -d -p 8888:8888 -e GITHUB_API_ACCESS_TOKEN="YOUR ACCESS TOKEN"... repositories-api
 ```
 
 Note that you will need to configure the application through environment variables, in this case passing command-line arguments.

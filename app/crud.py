@@ -23,7 +23,7 @@ async def get_tops(
     from_date: date, limit: int, language: str | None = None
 ) -> list[schemas.Repository]:
     """
-    Get top repositories using Gidgethub as the client.
+    Gets the top repositories using Gidgethub as the client.
 
     :param from_date: Get repositories created from this date.
     :param limit: Number of top repositories to get.
@@ -45,7 +45,7 @@ async def get_tops(
 
 def _build_url_params(from_date: date, limit: int, language: str | None) -> str:
     """
-    Builds URL parameters string for the request.
+    Builds the URL parameters string for the request.
     """
     query = f"created:>{from_date.isoformat()}"
     if language:
@@ -60,7 +60,7 @@ async def _extract_repositories_data(
     limit: int, repos: AsyncGenerator[Any, None]
 ) -> List[schemas.Repository]:
     """
-    Extracts repository payload data from GitHub API response.
+    Extracts the repository payload data from GitHub API response.
     """
     tops = []
     for _ in range(limit):
