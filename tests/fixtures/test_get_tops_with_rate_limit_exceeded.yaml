@@ -4,8 +4,6 @@ interactions:
     headers:
       accept:
       - application/vnd.github.v3+json
-      authorization:
-      - token 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
       content-length:
       - '0'
       user-agent:

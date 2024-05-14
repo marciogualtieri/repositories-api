@@ -13,6 +13,7 @@ tests_vcr = VCR(
     cassette_library_dir=path.join(path.dirname(__file__), "fixtures"),
     path_transformer=lambda path: path + ".yaml",
     ignore_hosts=["testserver"],
+    filter_headers=["authorization"]
 )
 
 
