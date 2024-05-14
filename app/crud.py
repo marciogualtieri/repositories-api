@@ -14,7 +14,7 @@ from . import schemas
 from .settings import settings
 
 cache: cachetools.Cache = cachetools.TTLCache(
-    maxsize=500,
+    maxsize=settings.GITHUB_API_CLIENT_CACHE_MAXSIZE,
     ttl=timedelta(hours=settings.GITHUB_API_CLIENT_CACHE_TTL_HOURS).total_seconds(),
 )
 

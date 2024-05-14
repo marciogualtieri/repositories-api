@@ -142,3 +142,13 @@ docker run -d -p 8888:8888 -e GITHUB_API_ACCESS_TOKEN="YOUR ACCESS TOKEN"... rep
 ```
 
 Note that you will need to configure the application through environment variables, in this case passing command-line arguments.
+
+The following application's configuration parameters are available:
+
+|Variable                         | Description                                                                                                       |
+|:--------------------------------|:------------------------------------------------------------------------------------------------------------------|
+|DEFAULT_LIMIT                    |Number of top repositories returned. It can be 10, 50, or 100. Defaults to 10.                                     |
+|DEFAULT_FROM_DAYS_AGO            |If the query parameter from_date is not supplied, it defaults to now minus this many days. Defaults to 5 years ago.|
+|GITHUB_API_ACCESS_TOKEN          |The GitHub API access token. It's required in order to have a working application.                                 |
+|GITHUB_API_CLIENT_CACHE_TTL_HOURS|The GitHub client's TTL cache expiration in hours. Defaults to 3 hours.                                            |
+|GITHUB_API_CLIENT_CACHE_MAXSIZE  |The GitHub client's TTL cache maximum size. Defaults to 500 entries.                                               |

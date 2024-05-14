@@ -4,6 +4,7 @@ from os import path
 from unittest import mock
 
 from vcr import VCR
+from freezegun import freeze_time
 
 from app import main
 from app.settings import settings as app_settings
@@ -115,6 +116,7 @@ def test_get_tops_with_from_date(client):
 
 
 @tests_vcr.use_cassette()
+@freeze_time("2024-05-11")
 def test_get_tops_with_all_languages(client):
     response = client.get("/tops/")
     assert response.status_code == 200
@@ -214,6 +216,7 @@ def test_get_tops_with_all_languages(client):
 
 
 @tests_vcr.use_cassette()
+@freeze_time("2024-05-11")
 def test_get_tops_with_specific_language(client):
     response = client.get("/tops/", params={"language": "Python"})
     assert response.status_code == 200
@@ -313,6 +316,7 @@ def test_get_tops_with_specific_language(client):
 
 
 @tests_vcr.use_cassette()
+@freeze_time("2024-05-11")
 def test_get_tops_with_specific_limit_50(client):
     """
     Unfortunatelly can't use pytest.parametrize, given that
@@ -325,6 +329,7 @@ def test_get_tops_with_specific_limit_50(client):
 
 
 @tests_vcr.use_cassette()
+@freeze_time("2024-05-11")
 def test_get_tops_with_specific_limit_100(client):
     limit = 100
     response = client.get("/tops/", params={"limit": str(limit)})
@@ -333,7 +338,7 @@ def test_get_tops_with_specific_limit_100(client):
 
 
 @tests_vcr.use_cassette()
-def test_get_tops_with_invalid_limits(client):
+def test_get_tops_with_invalid_limit(client):
     response = client.get("/tops/", params={"limit": "123"})
     assert response.status_code == 422
     assert response.json() == {
