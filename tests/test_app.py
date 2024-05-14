@@ -3,8 +3,8 @@
 from os import path
 from unittest import mock
 
-from vcr import VCR
 from freezegun import freeze_time
+from vcr import VCR
 
 from app import main
 from app.settings import settings as app_settings
