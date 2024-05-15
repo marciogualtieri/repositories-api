@@ -19,7 +19,6 @@ RUN groupadd $USER
 RUN useradd -ms /bin/bash -g $GROUP $USER
 USER $USER
 
-USER $USER
 WORKDIR /home/$USER/application
 
 COPY . .
